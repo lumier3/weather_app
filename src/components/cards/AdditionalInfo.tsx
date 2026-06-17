@@ -8,11 +8,16 @@ import Uv from "/src/assets/uv.svg?react";
 import Wind from "/src/assets/wind.svg?react";
 import Cloud from "/src/assets/cloud.svg?react";
 import Uparrow from "/src/assets/uparrow.svg?react";
+import type { Coords } from "../../types.ts";
 
-export default function AdditionalInfo() {
+type Props = {
+  coords: Coords;
+};
+
+export default function AdditionalInfo({ coords }: Props) {
   const { data } = useSuspenseQuery({
-    queryKey: ["weather"],
-    queryFn: () => getWeather({ lat: 16.8713, lon: 96.1994 }),
+    queryKey: ["weather", coords],
+    queryFn: () => getWeather({ lat: coords.lat, lon: coords.lon }),
   });
   return (
     <Card
